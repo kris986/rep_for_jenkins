@@ -23,7 +23,7 @@ function set_openid(openid, pr)
         {{form.openid(size=80)}}
         {% for error in form.errors.openid %}
         <span style="color: red;">[{{error}}]</span>
-        {% endfor %}<br><br>
+        {% endfor %}<br><br
         |{% for pr in providers %}
         <a href="javascript:set_openid('{{pr.url}}', '{{pr.name}}');">{{pr.name}}</a> |
         {% endfor %}
