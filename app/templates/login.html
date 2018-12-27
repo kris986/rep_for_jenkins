@@ -2,34 +2,39 @@
 {% extends "base.html" %}
 
 {% block content %}
-<script type="text/javascript">
-function set_openid(openid, pr)
-{
-    u = openid.search('<username>')
-    if (u != -1) {
-        // openid requires username
-        user = prompt('Enter your ' + pr + ' username:')
-        openid = openid.substr(0, u) + user
-    }
-    form = document.forms['login'];
-    form.elements['openid'].value = openid
-}
-</script>
-<h1>Sign In</h1>
-<form action="" method="post" name="login">
-    {{form.hidden_tag()}}
-    <p>
-        Please enter your OpenID, or select one of the providers below:<br>
-        {{form.openid(size=80)}}
-        {% for error in form.errors.openid %}
-        <span style="color: red;">[{{error}}]</span>
-        {% endfor %}<br><br
-        |{% for pr in providers %}
-        <a href="javascript:set_openid('{{pr.url}}', '{{pr.name}}');">{{pr.name}}</a> |
-        {% endfor %}
-    </p>
-    <p>{{form.remember_me}} Remember Me my dear/p>
-    <p><input type="submit" value="Sign In"></p>
+
+    <h1>Sign In</h1>
+    {% if error %}
+        <div class="bg-danger">
+            <strong>Error:</strong> {{ error }}
+        </div>
+    {% endif %}
+<div class="col-md-8">
+<form class="form-inline" method="post" action="login">
+  <div class="form-group">
+    <label class="sr-only" for="exampleInputEmail3">username</label>
+    <input type="text" class="form-control" id="exampleInputEmail3" placeholder="username" name="username">
+  </div>
+  <div class="form-group">
+    <label class="sr-only" for="exampleInputPassword3">password</label>
+    <input type="password" class="form-control" id="exampleInputPassword3" placeholder="Password" name="password">
+  </div>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox"> Remember me
+    </label>
+  </div>
+  <button type="submit" class="btn btn-default" >Sign in</button>
 </form>
+</div>
+<div class="col-md-12">
+        <a class="btn btn-danger" href="registration" role="button">Registration</a>
+</div>
+
+<div class="col-md-12">
+    <form class="form-inline" method="post" action="logout">
+    <button type="submit" class="btn btn-success">Log out</button>
+    </form>
+</div>
 {% endblock %}
 

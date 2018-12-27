@@ -1,0 +1,34 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+{% if error %}
+<h2>{{ error }}</h2>
+{% else %}
+<h1>Registration</h1>
+{% endif %}
+<form class="form-inline" method="post" action="registration">
+  <div class="form-group">
+    <label class="sr-only" for="exampleInputUserName">username</label>
+    <input type="text" class="form-control" id="exampleInputUserName" placeholder="username" name="username">
+  </div>
+  <div class="form-group">
+    <label class="sr-only" for="exampleInputEmail">e-mail</label>
+    <input type="email" class="form-control" id="exampleInputEmail" placeholder="e-mail" name="email">
+  </div>
+  <div class="form-group">
+    <label class="sr-only">password</label>
+    <input type="password" class="form-control" placeholder="password" name="password">
+  </div>
+  <div class="form-group">
+    <label class="sr-only" for="exampleInputCity">city</label>
+    <input type="text" class="form-control" id="exampleInputCity" placeholder="city" name="city">
+  </div>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox"> Remember me
+    </label>
+  </div>
+  <button type="submit" class="btn btn-default" >Sign in</button>
+</form>
+{% endblock %}
