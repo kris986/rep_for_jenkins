@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     {% if title %}
     <title>{{title}} - microblog</title>
     {% else %}
@@ -9,16 +10,26 @@
   </head>
   <body>
     <div>Microblog: <a href="/index">Home</a></div>
+    <div>
+    {% if not session %}
+    <a href="{{ url_for('login') }}">log in</a>
+    {% else %}
+    <a href="{{ url_for('logout') }}">log out</a><br>
+    <a href = "{{ url_for('personal_page') }}">Profil page</a>
+    {% endif %}
+    </div>
     <hr>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     <ul>
     {% for message in messages %}
-        <li>{{ message }} </li>
+        <li>{{ message }}</li>
     {% endfor %}
     </ul>
     {% endif %}
     {% endwith %}
     {% block content %}{% endblock %}
+    <footer>VIZSLA SITE</footer>
+
   </body>
 </html>
