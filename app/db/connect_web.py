@@ -18,9 +18,6 @@ class ConnectDataBase:
                 user_name=user_name, user_email=user_email, password=password, city=city))
         conn.commit()
 
-    def update_user_in_db(self):
-        pass
-
     def select_users_from_db(self):
         conn = self.connect_db()
         cursor = conn.cursor()

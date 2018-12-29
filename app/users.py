@@ -28,7 +28,7 @@ class DataUser:
             return False
 
     def get_user(self):
-        pass
+        from_db.parse_users()
 
     def update_user(self):
         pass

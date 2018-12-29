@@ -1,8 +1,6 @@
 import psycopg2
 from flask import render_template, redirect, request, session, url_for
-
 from app import app
-
 from app.users import DataUser
 from app.db.connect_web import ConnectDataBase
 

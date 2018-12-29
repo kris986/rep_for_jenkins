@@ -1,8 +1,6 @@
 <!-- extend base layout -->
 {% extends "base.html" %}
-
 {% block content %}
-
     <h1>Sign In</h1>
     {% if error %}
         <div class="bg-danger">
@@ -30,7 +28,6 @@
 <div class="col-md-12">
         <a class="btn btn-danger" href="registration" role="button">Registration</a>
 </div>
-
 <div class="col-md-12">
     <form class="form-inline" method="post" action="logout">
     <button type="submit" class="btn btn-success">Log out</button>
