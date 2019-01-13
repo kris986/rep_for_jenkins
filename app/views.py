@@ -1,11 +1,19 @@
+import os
+
 import psycopg2
-from flask import render_template, redirect, request, session, url_for
+from flask import render_template, redirect, request, session, url_for, send_from_directory
+from werkzeug.utils import secure_filename
+
 from app import app
 from app.users import DataUser
 from app.db.connect_web import ConnectDataBase
+from app.pets import DataPets
+from app.other import list_of_sex_nms
+from config import ALLOWED_EXTENSIONS
 
-data_user = DataUser()
 from_db = ConnectDataBase()
+data_user = DataUser()
+data_pets = DataPets()
 
 
 @app.route('/')
@@ -22,10 +30,12 @@ def index():
             'body': 'The Avengers movie was so cool!'
         }
     ]
+    dogs = data_pets.parse_to_json(from_db.select_all_users_dogs())
     return render_template("index.html",
                            title='Home',
                            user=test_user,
-                           posts=posts)
+                           posts=posts,
+                           dogs=dogs)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -41,17 +51,92 @@ def login():
             # data_user.login_user(user_name=user_name, password=password)
             session['user_name'] = user_name
             print(session['user_name'])
-            return redirect(url_for('personal_page', username=user_name))
+            return redirect_to_main_page()
     return render_template('login.html')
 
 
-@app.route('/my-page')
+@app.route('/users_files/<filename>')
+def uploaded_file(filename):
+    some = send_from_directory(app.config['UPLOAD_FOLDER'],
+                               filename)
+    print(some)
+    return send_from_directory(app.config['UPLOAD_FOLDER'],
+                               filename)
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+
+@app.route('/my-page', methods=['GET', 'POST'])
 def personal_page():
+    message = request.args.get('message')
     username = session['user_name']
+    path_to_pic = None
     city = from_db.parse_users()[username]['city']
+    dogs = data_pets.parse_to_json(from_db.select_users_dogs(username))
+    if request.method == 'POST':
+        file = request.files['file']
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+
+            path_to_pic = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            print(path_to_pic)
+            if file.save(path_to_pic):
+            # return redirect(url_for('uploaded_file',
+            #                         filename=filename))
+                path_to_pic = uploaded_file(filename=filename)
+            # print(path_to_pic)
+            # return render_template('personal_page.html',
+            #                        path_to_pic=path_to_pic,
+            #                        username=username,
+            #                        city=city,
+            #                        dogs=dogs,
+            #                        message=uploaded_file(filename))
+    else:
+        return render_template('personal_page.html',
+                               path_to_pic=path_to_pic,
+                               username=username,
+                               city=city,
+                               dogs=dogs,
+                               message=message)
     return render_template('personal_page.html',
+                           path_to_pic=path_to_pic,
                            username=username,
-                           city=city)
+                           city=city,
+                           dogs=dogs,
+                           message=message)
+
+
+@app.route('/add-dog', methods=['GET', 'POST'])
+def form_for_adding_dog():
+    if request.method == 'POST':
+        owner = session['user_name']
+        breed = request.form['breed']
+        sex = request.form['sex']
+        dog_bday = request.form['dog_bday']
+        pet_name = request.form['pet_name']
+        kennel = request.form['kennel']
+        if data_pets.add_dog(owner=owner,
+                             breed=breed,
+                             sex=sex,
+                             dog_bday=dog_bday,
+                             pet_name=pet_name,
+                             kennel=kennel):
+            # return personal_page('Success')
+            return redirect(url_for('personal_page', message='Success'))
+
+    else:
+        username = session['user_name']
+        city = from_db.parse_users()[username]['city']
+        sex_nms = list_of_sex_nms()
+        breeds = data_pets.parse_to_json_breeds()
+        return render_template('add_dog.html',
+                               username=username,
+                               city=city,
+                               breeds=breeds,
+                               sex_nms=sex_nms)
 
 
 @app.errorhandler(404)
@@ -59,21 +144,22 @@ def page_not_found(error):
     return render_template('page_not_found.html'), 404
 
 
-@app.route('/logout')
-def logout():
-    data_user.logout_user()
+def redirect_to_main_page():
     return redirect(url_for('index'))
 
 
-def registration(user_name, user_email, password, city=None):
+@app.route('/logout')
+def logout():
+    data_user.logout_user()
+    return redirect_to_main_page()
+
+
+def registration(user_name, user_email, password, country=None, city=None):
     try:
-        from_db.insert_user_in_db(user_name, user_email, password, city)
+        from_db.insert_user_in_db(user_name, user_email, password, country, city)
     except psycopg2.Error as e:
-        print(e.pgerror)
         return render_template('registration.html', error=e.pgerror)
-    return render_template('personal_page.html',
-                           user_name=user_name,
-                           city=city)
+    return redirect_to_main_page()
 
 
 @app.route('/registration', methods=['GET', 'POST'])
@@ -84,8 +170,9 @@ def registration_page():
         user_name = request.form['username']
         user_email = request.form['email']
         password = request.form['password']
+        country = request.form['country']
         city = request.form['city']
-        return registration(user_name, user_email, password, city)
+        return registration(user_name, user_email, password, country, city)
     return render_template('registration.html', error=error)
 
 

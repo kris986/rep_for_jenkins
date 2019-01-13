@@ -1,10 +1,62 @@
 <!-- extend base layout -->
 {% extends "base.html" %}
 {% block content %}
-<div class="site-wrapper">
-      <div class="site-wrapper-inner">
-<h1>Hi, {{username }},</h1>
-<h2>from {{ city }}</h2>
-      </div>
+<div class="container">
+    <div class="row">
+        {% if not session %}
+        <div class="site-wrapper-inner">
+            <h1>Hi, new user!</h1>
+            <h2>You need to registration</h2>
+        </div>
+        <div class="col-md-12">
+            <a class="btn btn-danger" href="registration" role="button">Registration</a>
+        </div>
+        {% else %}
+        <div class="site-wrapper">
+            <div class="site-wrapper-inner">
+                <img src="users_files\1.jpg">
+                <img src="users_files/22_46635228_orig_.jpeg">
+                {% if path_to_pic %}
+                <p>{{ path_to_pic }}</p>
+                <div><img src="{{path_to_pic}}"></div>
+                {% else %}
+                <form enctype="multipart/form-data" method="post">
+                    <div class="form-group">
+                        <input type="file" accept="image/*" name="file">
+                    </div>
+                    <button type="submit">Upload file</button>
+                </form>
+                {% endif %}
+                <h1>Hi, {{username }},</h1>
+                <h2>from {{ city }}</h2>
+
+            </div>
+        </div>
+        <div class="col-1">
+            {% if not dogs %}
+            <h2>U haven't any dog</h2>
+            {% else %}
+            <h2>My dogs</h2>
+            {% for dog in dogs %}
+            <h3 class="petname">{{ dog.pet_name }}</h3>
+            <div class="col-1">
+                <div class="info">
+                    {{ dog.breed }}<br>
+                    {{ dog.kennel }}<br>
+                    {{ dog.to_char }}
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            {% if message %}
+            <div class="alert alert-success" role="alert">{{ message }}</div>
+            {% else %}
+            {% endif %}
+            <div class="col-md-12">
+                <a class="btn btn-danger" href="add-dog" role="button">Want to add my dog</a>
+            </div>
+            {% endif %}
     </div>
+</div>
 {% endblock %}

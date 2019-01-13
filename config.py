@@ -6,3 +6,5 @@ OPENID_PROVIDERS = [
     {'name': 'AOL', 'url': 'http://openid.aol.com/<username>'},
     {'name': 'Flickr', 'url': 'http://www.flickr.com/<username>'},
     {'name': 'MyOpenID', 'url': 'https://www.myopenid.com'}]
+UPLOAD_FOLDER = "users_files"
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])

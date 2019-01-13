@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Add dog</h1>
+<!--form adding dog-->
+<div class="container">
+    <div class="row">
+        <div class="form-row">
+            <form method="post">
+                <div class="form-group col-md-3">
+                    <label>pet name</label>
+                    <input type="text" class="form-control" placeholder="pet_name" name="pet_name">
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Kennel</label>
+                    <input type="text" class="form-control" placeholder="kennel" name="kennel">
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Enter dog birthday:</label>
+                    <input type="date" name="dog_bday" id="datepicker">
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Sex</label>
+                    <!--There are sex select from BD-->
+                    <select class="form-control" name="sex">
+                        <option selected>Choose sex</option>
+                        {% for sex in sex_nms %}
+                        <option value="{{ sex }}">{{ sex }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Breed</label>
+                    <!--There are breeds select from BD-->
+                    <select class="form-control" name="breed">
+                        <option selected>Choose breed</option>
+                        {% for breed in breeds %}
+                        <option value="{{ breed }}">{{ breed }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <button type="submit" class="btn btn-primary">Add dog</button>
+                </div>
+            </form>
+            <!--{% if message %}-->
+            <!--<div class="danger">{{ message }}</div>-->
+            <!--{% else %}-->
+            <!--{% endif %}-->
+        </div>
+    </div>
+</div>
+<!--end form-->
+{% endblock %}
