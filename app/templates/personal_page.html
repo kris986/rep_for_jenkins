@@ -14,7 +14,7 @@
         {% else %}
         <div class="site-wrapper">
             <div class="site-wrapper-inner">
-                <img src="users_files\1.jpg">
+                <img src="{{ url_for('users_files', filename='/users_files/1.jpg') }}">
                 <img src="users_files/22_46635228_orig_.jpeg">
                 {% if path_to_pic %}
                 <p>{{ path_to_pic }}</p>

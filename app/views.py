@@ -8,7 +8,7 @@ from app import app
 from app.users import DataUser
 from app.db.connect_web import ConnectDataBase
 from app.pets import DataPets
-from app.other import list_of_sex_nms
+from app.other import list_of_sex_nms, allowed_file
 from config import ALLOWED_EXTENSIONS
 
 from_db = ConnectDataBase()
@@ -53,20 +53,6 @@ def login():
     return render_template('login.html')
 
 
-@app.route('/users_files/<filename>')
-def uploaded_file(filename):
-    some = send_from_directory(app.config['UPLOAD_FOLDER'],
-                               filename)
-    print(some)
-    return send_from_directory(app.config['UPLOAD_FOLDER'],
-                               filename)
-
-
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
-
-
 @app.route('/my-page', methods=['GET', 'POST'])
 def personal_page():
     message = request.args.get('message')
@@ -78,11 +64,16 @@ def personal_page():
         file = request.files['file']
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-
             path_to_pic = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            print(path_to_pic)
             if file.save(path_to_pic):
                 path_to_pic = uploaded_file(filename=filename)
+                return render_template('personal_page.html',
+                                       path_to_pic=path_to_pic,
+                                       username=username,
+                                       city=city,
+                                       dogs=dogs,
+                                       message=message
+                                       )
     else:
         return render_template('personal_page.html',
                                path_to_pic=path_to_pic,
@@ -90,12 +81,6 @@ def personal_page():
                                city=city,
                                dogs=dogs,
                                message=message)
-    return render_template('personal_page.html',
-                           path_to_pic=path_to_pic,
-                           username=username,
-                           city=city,
-                           dogs=dogs,
-                           message=message)
 
 
 @app.route('/add-dog', methods=['GET', 'POST'])
