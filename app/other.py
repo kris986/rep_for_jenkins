@@ -1,3 +1,6 @@
+from flask import send_from_directory
+
+from app import app
 from app.db.connect_web import ConnectDataBase
 
 from_db = ConnectDataBase()
