@@ -48,9 +48,7 @@ def login():
             error = 'Invalid username or password'
             return render_template('login.html', error=error)
         else:
-            # data_user.login_user(user_name=user_name, password=password)
             session['user_name'] = user_name
-            print(session['user_name'])
             return redirect_to_main_page()
     return render_template('login.html')
 
@@ -68,15 +66,14 @@ def personal_page():
             filename = secure_filename(file.filename)
             path_to_pic = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             if file.save(path_to_pic):
-                print(path_to_pic)
+                path_to_pic = uploaded_file(filename=filename)
                 return render_template('personal_page.html',
                                        path_to_pic=path_to_pic,
                                        username=username,
                                        city=city,
                                        dogs=dogs,
-                                       message=message,
-                                       filename=path_to_pic)
-            # path_to_pic = uploaded_file(filename=filename)
+                                       message=message
+                                       )
     else:
         return render_template('personal_page.html',
                                path_to_pic=path_to_pic,
@@ -101,7 +98,6 @@ def form_for_adding_dog():
                              dog_bday=dog_bday,
                              pet_name=pet_name,
                              kennel=kennel):
-            # return personal_page('Success')
             return redirect(url_for('personal_page', message='Success'))
 
     else:
