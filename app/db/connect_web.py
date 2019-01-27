@@ -1,4 +1,5 @@
 from psycopg2 import connect
+from config import DB_USER, DB_NAME, DB_PASSWORD, DB_HOST
 
 
 class ConnectDataBase:
@@ -6,8 +7,10 @@ class ConnectDataBase:
         pass
 
     def connect_db(self):
-        conn = connect(database="web_flask", user="postgres", password="postgres", host='localhost')
+        conn = connect(database=DB_NAME, user=DB_USER, password=DB_PASSWORD, host=DB_HOST)
+        # conn = connect(database="web_flask", user="postgres", password="postgres", host='localhost')
         return conn
+
 
     def insert_user_in_db(self, user_name, user_email, password, country, city):
         conn = self.connect_db()
@@ -17,6 +20,7 @@ class ConnectDataBase:
             "'{password}', '{country}', '{city}');".format(
                 user_name=user_name, user_email=user_email, password=password, country=country, city=city))
         conn.commit()
+        self.close_db()
 
     def insert_users_avatar(self, avatar):
         conn = self.connect_db()
@@ -116,5 +120,5 @@ class ConnectDataBase:
         conn = self.connect_db()
         conn.close()
 #
-# a = ConnectDataBase()
-# print(a.parse_users())
+a = ConnectDataBase()
+print(a.select_users_from_db())
