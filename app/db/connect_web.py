@@ -120,5 +120,5 @@ class ConnectDataBase:
         conn = self.connect_db()
         conn.close()
 #
-a = ConnectDataBase()
-print(a.select_users_from_db())
+# a = ConnectDataBase()
+# print(a.select_users_from_db())
