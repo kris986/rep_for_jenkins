@@ -1,1 +1,1 @@
-web: gunicorn flask-dog-app:app
+web: gunicorn runp-heroku:app
