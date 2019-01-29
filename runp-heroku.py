@@ -1,5 +1,6 @@
 from app import run_app
-import config
+from flask_heroku import Heroku
+
 
 app = run_app()
-
+Heroku(app=app)
