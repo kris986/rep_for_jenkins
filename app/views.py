@@ -3,7 +3,7 @@ import os
 import psycopg2
 from flask import render_template, redirect, request, session, url_for, send_from_directory
 from werkzeug.utils import secure_filename
-from flask import Flask
+
 from app import app
 from app.users import DataUser
 from app.db.connect_web import ConnectDataBase
@@ -14,7 +14,6 @@ from config import ALLOWED_EXTENSIONS
 from_db = ConnectDataBase()
 data_user = DataUser()
 data_pets = DataPets()
-app = Flask(__name__, static_url_path='/users_files', static_folder='static')
 
 
 @app.route('/')

@@ -1,4 +1,6 @@
-from app import app
-from app import run_app
+from app import create_app
+from flask_heroku import Heroku
 
-app = run_app()
+
+app = create_app()
+# Heroku(app)
