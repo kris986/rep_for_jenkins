@@ -1,7 +1,6 @@
 from app import app
 import unittest
 import xmlrunner
-import time
 
 
 class BasicTestCase(unittest.TestCase):
@@ -18,9 +17,9 @@ class BasicTestCase(unittest.TestCase):
         self.assertEqual(10, 7 + 3)
 
     def test_fail(self):
-        self.assertEqual(10,7 + 3)
+        self.assertEqual(10, 7 + 3)
 
 
 if __name__ == '__main__':
     unittest.main(
-         testRunner=xmlrunner.XMLTestRunner(output='reports'), failfast=False, buffer=False, catchbreak=False)
+         testRunner=xmlrunner.XMLTestRunner(output='reports'))
