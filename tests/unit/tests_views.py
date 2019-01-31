@@ -1,9 +1,13 @@
 from app import app
-from app import create_app
 import unittest
+import xmlrunner
 
 
 class BasicTestCase(unittest.TestCase):
+    @unittest.skip("demonstrating skipping")
+    def test_skipped(self):
+        self.fail("shouldn't happen")
+
     def test_index(self):
         tester = app.test_client(self)
         response = tester.get('/', content_type='html/text')
@@ -13,9 +17,9 @@ class BasicTestCase(unittest.TestCase):
         self.assertEqual(10, 7 + 3)
 
     def test_fail(self):
-        self.assertEqual(10,7 + 3)
+        self.assertEqual(10, 7 + 3)
 
 
 if __name__ == '__main__':
-    import xmlrunner
-    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='reports'))
+    unittest.main(
+         testRunner=xmlrunner.XMLTestRunner(output='reports'))
