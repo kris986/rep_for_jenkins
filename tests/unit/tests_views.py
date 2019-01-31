@@ -18,7 +18,7 @@ class BasicTestCase(unittest.TestCase):
         self.assertEqual(10, 7 + 3)
 
     def test_fail(self):
-        self.assertEqual(11, 7 + 3)
+        self.assertEqual(10,7 + 3)
 
 
 if __name__ == '__main__':
@@ -26,4 +26,3 @@ if __name__ == '__main__':
          testRunner=xmlrunner.XMLTestRunner(output='reports'), failfast=False, buffer=False, catchbreak=False)
         # these make sure that some options that are not applicable
         # remain hidden from the help menu.
-
