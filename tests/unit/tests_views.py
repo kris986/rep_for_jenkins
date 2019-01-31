@@ -1,9 +1,14 @@
 from app import app
-from app import create_app
 import unittest
+import xmlrunner
+import time
 
 
 class BasicTestCase(unittest.TestCase):
+    @unittest.skip("demonstrating skipping")
+    def test_skipped(self):
+        self.fail("shouldn't happen")
+
     def test_index(self):
         tester = app.test_client(self)
         response = tester.get('/', content_type='html/text')
@@ -17,4 +22,8 @@ class BasicTestCase(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(
+         testRunner=xmlrunner.XMLTestRunner(output='reports'), failfast=False, buffer=False, catchbreak=False)
+        # these make sure that some options that are not applicable
+        # remain hidden from the help menu.
+
