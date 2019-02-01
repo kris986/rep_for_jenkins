@@ -8,17 +8,17 @@
 {% endfor %}
 {% if dogs %}
 <div class="container">
-    {% for dog in dogs %}
     <div class="row">
-        <div class="col-1">
-            <div class="info">
-           {{ dog.owner }}<br>
-           {{ dog.pet_name }}<br>
-           {{ dog.breed }}<br>
-            </div>
+        {% for dog in dogs %}
+        <div class="col-sm">
+            {{ dog.owner }}<br>
+            {{ dog.pet_name }}<br>
+            {{ dog.breed }}<br>
         </div>
+        {% endfor %}
     </div>
-{% endfor %}
+</div>
+
 </div>
 {% endif %}
 {% endblock %}
