@@ -100,3 +100,31 @@ body {
     font-size: 16px;
   }
 }
+#dog-card{
+padding: 5px;
+
+}
+
+#main-page-border{
+
+background-image: url('pointer_border.jpg');
+background-size: cover;
+min-width:100%;
+height:100vh;
+
+
+
+}
+#main-page-border h1{
+position: absolute;
+left: 50%;
+top: 50%;
+transform: translate(0, -50%);
+color: #e6d393;
+}
+
+#base-footer{
+bottom: 0;
+height: 10vh;
+color: #e6d393;
+}

@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
+<div id="main-page-border">
+    <h1>Hello world</h1>
+</div>
 <h1>Hi, {{user.nickname}}!</h1>
 {% for post in posts %}
 <div>
@@ -8,9 +11,12 @@
 {% endfor %}
 {% if dogs %}
 <div class="container">
+
     <div class="row">
         {% for dog in dogs %}
-        <div class="col-sm">
+            {% set count_dogs= loop.length %}
+        <div id="dog-card" class="col-lg-3 col-md-4 col-sm-6 col-12 py-3 px-lg-5 border bg-info">
+            <img src="https://picsum.photos/300/300/?gravity=east" class="img-fluid" alt="Responsive image">
             {{ dog.owner }}<br>
             {{ dog.pet_name }}<br>
             {{ dog.breed }}<br>
@@ -19,6 +25,5 @@
     </div>
 </div>
 
-</div>
 {% endif %}
 {% endblock %}
