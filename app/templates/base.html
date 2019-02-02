@@ -21,29 +21,56 @@
     {% endif %}
 </head>
 <body>
-<div>Microblog: <a href="/index">Home</a></div>
-<div>
-    {% if not session %}
-    <a href="{{ url_for('login') }}">log in</a>
-    {% else %}
-    <a href="{{ url_for('logout') }}">log out</a><br>
-    <a href="{{ url_for('personal_page') }}">Profil page</a>
+<header class="border-bottom bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">Flask & Dogs</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/index">Start page</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pricing</a>
+                </li>
+            </ul>
+
+            <span class="navbar-text">
+                {% if not session %}
+                <a href="{{ url_for('login') }}">log in</a>
+                {% else %}
+                <a href="{{ url_for('logout') }}">log out</a><br>
+                <a href="{{ url_for('personal_page') }}">Profil page</a>
+                {% endif %}
+    </span>
+        </div>
+    </nav>
+    <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    <!--End navbar-->
+</header>
+<main>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
     {% endif %}
-</div>
-<hr>
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-<ul>
-    {% for message in messages %}
-    <li>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
-{% endwith %}
-{% block content %}
+    {% endwith %}
+    {% block content %}
 
-{% endblock %}
-
+    {% endblock %}
+</main>
 <footer id="base-footer" class="border-top bg-dark">VIZSLA SITE</footer>
 </body>
 </html>
