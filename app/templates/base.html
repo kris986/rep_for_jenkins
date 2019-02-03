@@ -40,7 +40,6 @@
                     <a class="nav-link" href="#">Pricing</a>
                 </li>
             </ul>
-
             <span class="navbar-text">
                 {% if not session %}
                 <a href="{{ url_for('login') }}">log in</a>
@@ -48,7 +47,7 @@
                 <a href="{{ url_for('logout') }}">log out</a><br>
                 <a href="{{ url_for('personal_page') }}">Profil page</a>
                 {% endif %}
-    </span>
+            </span>
         </div>
     </nav>
     <form class="form-inline">
@@ -68,7 +67,7 @@
     {% endif %}
     {% endwith %}
     {% block content %}
-
+        <!--Some content-->
     {% endblock %}
 </main>
 <footer id="base-footer" class="border-top bg-dark">VIZSLA SITE</footer>

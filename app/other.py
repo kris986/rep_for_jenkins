@@ -1,7 +1,5 @@
-from flask import send_from_directory
-
-from app import app
 from app.db.connect_web import ConnectDataBase
+from config import ALLOWED_EXTENSIONS
 
 from_db = ConnectDataBase()
 
@@ -14,4 +12,7 @@ def list_of_sex_nms():
     return list_of_sex_nm
 
 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
