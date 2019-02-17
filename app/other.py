@@ -1,9 +1,24 @@
-from flask import send_from_directory
+from bottle import redirect
+from coverage import files
+from flask_uploads import IMAGES, UploadSet, configure_uploads
 
 from app import app
 from app.db.connect_web import ConnectDataBase
+from flask import Flask, request
 
 from_db = ConnectDataBase()
+
+
+def is_production():
+    """ Determines if app is running on the production server or not.
+    Get Current URI.
+    Extract root location.
+    Compare root location against developer server value 127.0.0.1:5000.
+    :return: (bool) True if code is running on the production server, and False otherwise.
+    """
+    root_url = request.url_root
+    # developer_url = 'http://127.0.0.1:5000/'
+    return root_url
 
 
 def list_of_sex_nms():
@@ -14,4 +29,6 @@ def list_of_sex_nms():
     return list_of_sex_nm
 
 
-
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS

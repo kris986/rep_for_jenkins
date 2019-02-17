@@ -6,8 +6,8 @@ OPENID_PROVIDERS = [
     {'name': 'AOL', 'url': 'http://openid.aol.com/<username>'},
     {'name': 'Flickr', 'url': 'http://www.flickr.com/<username>'},
     {'name': 'MyOpenID', 'url': 'https://www.myopenid.com'}]
-UPLOAD_FOLDER = "users_files"
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+UPLOADED_PHOTOS_DEST = "static/users_files"
+# IMAGES = set(['png', 'jpg', 'jpeg', 'gif'])
 DB_HOST = 'ec2-54-247-82-210.eu-west-1.compute.amazonaws.com'
 DB_NAME = 'dfqtsqais64fjm'
 DB_USER = 'yxiqyvzagxrdjm'
