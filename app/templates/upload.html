@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<form method=POST enctype=multipart/form-data action="{{ url_for('upload') }}">
+    <input type=file name=photo>
+    <input type="submit">
+</form>
+<form enctype="multipart/form-data" method="post">
+    <div class="form-group">
+        <label class="btn btn-secondary active">
+            <input type="file" class="form-control-file" accept="image/*" name="user_avatar">
+            Example file input
+        </label>
+        <button class="btn btn-danger" type="submit">Upload file</button>
+    </div>
+</form>
+
+{% if filename %}
+{{ filename }}
+{% endif %}
+{% endblock %}
