@@ -25,6 +25,4 @@ configure_uploads(app, photos)
     #             emit(doc.published, doc);
     #     }''', descending=True)
 
-
-# end of uploading
 from app import views

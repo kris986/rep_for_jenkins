@@ -6,6 +6,7 @@ from app import app
 from app.db.connect_web import ConnectDataBase
 from flask import Flask, request
 
+
 from_db = ConnectDataBase()
 
 
