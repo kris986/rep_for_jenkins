@@ -10,19 +10,7 @@ sentry_sdk.init(
 )
 app = Flask(__name__, static_url_path='/static', static_folder='static')
 app.config.from_object('config')
-photos = UploadSet('photos', IMAGES)
-# app.config['UPLOADED_PHOTOS_DEST'] = 'users_files'
-configure_uploads(app, photos)
+app.config['UPLOADED_PHOTOS_DEST'] = 'users_files'
 
-
-    # @property
-    # def imgsrc(self):
-    #     return photos.url(self.filename)
-
-    # all = ViewField('photolog', '''\
-    #     function (doc) {
-    #         if (doc.doc_type == 'post')
-    #             emit(doc.published, doc);
-    #     }''', descending=True)
 
 from app import views
