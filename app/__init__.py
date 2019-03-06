@@ -1,5 +1,4 @@
 from flask import Flask
-from flask_uploads import UploadSet, IMAGES, configure_uploads
 import sentry_sdk
 from sentry_sdk.integrations.flask import FlaskIntegration
 
