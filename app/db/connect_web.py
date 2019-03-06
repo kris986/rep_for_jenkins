@@ -11,7 +11,6 @@ class ConnectDataBase:
         # conn = connect(database="web_flask", user="postgres", password="postgres", host='localhost')
         return conn
 
-
     def insert_user_in_db(self, user_name, user_email, password, country, city):
         conn = self.connect_db()
         cursor = conn.cursor()
@@ -35,7 +34,7 @@ class ConnectDataBase:
         cursor = conn.cursor()
         cursor.execute(
             "WITH temp_for_users_dogs AS ("
-            "SELECT users.id as user_id, breeds.id as breed_id " 
+            "SELECT users.id as user_id, breeds.id as breed_id "
             "FROM users, breeds "
             "where users.user_name = '{owner}' and breeds.breed_name = '{breed}')"
             "INSERT INTO users_dogs"
@@ -91,7 +90,9 @@ class ConnectDataBase:
     def select_users_dogs(self, user_name):
         conn = self.connect_db()
         cursor = conn.cursor()
-        cursor.execute("select owner, pet_name, breed, sex, kennel, to_char(dog_bday, 'DD Mon YYYY') from users_dogs where owner = '{user_name}'".format(user_name=user_name))
+        cursor.execute(
+            "select owner, pet_name, breed, sex, kennel, to_char(dog_bday, 'DD Mon YYYY') from users_dogs where owner = '{user_name}'".format(
+                user_name=user_name))
         colnames = [desc[0] for desc in cursor.description]
         rows = cursor.fetchall()
         self.close_db()
@@ -119,6 +120,13 @@ class ConnectDataBase:
     def close_db(self):
         conn = self.connect_db()
         conn.close()
-#
+
+
 # a = ConnectDataBase()
 # print(a.select_users_from_db())
+class Photo(ConnectDataBase):
+    def __init__(self, filename):
+        self.filename = filename
+
+    def insert_photo_to_db(self, photo_id=None):
+        return photo_id

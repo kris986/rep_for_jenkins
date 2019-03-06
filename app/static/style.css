@@ -108,6 +108,14 @@ min-height: 100%;
 padding: 5px;
 }
 
+#add-dog{
+margin: 15px;
+}
+
+#user-block{
+padding: 15px;
+}
+
 #main-page-border{
 background-image: url('pointer_border.jpg');
 background-size: cover;
@@ -145,8 +153,6 @@ footer {
   min-height: 100px;
   padding: 1rem;
 color: #e6d393;
-
-
 }
 main {
 min-height: calc(100vh - 200px);

@@ -13,9 +13,9 @@
         </div>
     </div>
     {% else %}
-    <div class="row">
+    <div id="user-block" class="row">
         <div class="col">
-            <img src="D:\my_python\rep_for_jenkins\users_files\22_46635228_orig_.jpeg">
+            <img height="150" src="{{ url_for('static', filename='users_files/1.jpg') }}">
             {% if path_to_pic %}
             <p>{{ path_to_pic }}</p>
             <div><img src="{{path_to_pic}}"></div>
@@ -64,7 +64,7 @@
             <div class="alert alert-success" role="alert">{{ message }}</div>
             {% else %}
             {% endif %}
-            <div class="col-md-12">
+            <div id="add-dog" class="col-md-12">
                 <a class="btn btn-danger" href="add-dog" role="button">Want to add my dog</a>
             </div>
         </div>
