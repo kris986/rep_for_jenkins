@@ -1,7 +1,3 @@
-from bottle import redirect
-from coverage import files
-from flask_uploads import IMAGES, UploadSet, configure_uploads
-
 from app import app
 from app.db.connect_web import ConnectDataBase
 from flask import Flask, request
@@ -28,8 +24,3 @@ def list_of_sex_nms():
     for item in tuples_sex_nms:
         list_of_sex_nm.append((''.join(item)).strip())
     return list_of_sex_nm
-
-
-# def allowed_file(filename):
-#     return '.' in filename and \
-#            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
