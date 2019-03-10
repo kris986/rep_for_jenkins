@@ -8,7 +8,7 @@ from app import app
 from app.users import DataUser
 from app.db.connect_web import ConnectDataBase
 from app.pets import DataPets
-from app.other import list_of_sex_nms, allowed_file, is_production as HOST_URL
+from app.other import list_of_sex_nms, is_production as HOST_URL
 
 
 from_db = ConnectDataBase()
