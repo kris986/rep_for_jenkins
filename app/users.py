@@ -1,6 +1,7 @@
 from flask import request, session
 from app.db.connect_web import ConnectDataBase
-from kafka_integration import topic_login
+from kafka_integration import sending_msg_to_topic as to_topic
+
 
 from_db = ConnectDataBase()
 
@@ -24,10 +25,10 @@ class DataUser:
         if self.valid_login(user_name, password):
             data_user = from_db.parse_users()[user_name]
             print(data_user.get('user_email'))
-            topic_login.publish_message('login', 'success', data_user.get('user_email'))
+            to_topic.send_msg('login', 'success', data_user.get('user_email'))
             return data_user
         else:
-            topic_login.publish_message('login', 'fail', 'Invalid username or password')
+            to_topic.send_msg('login', 'fail', '{0}:{1}'.format(user_name, password))
             return False
 
     def get_user(self):
@@ -38,7 +39,6 @@ class DataUser:
 
     def logout_user(self):
         print(session['user_name'])
-        topic_login.publish_message('login', 'successs', session['user_name'])
         session.pop('user_name')
 
     def delete_user(self):
